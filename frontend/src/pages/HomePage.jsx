@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Container, Typography, Box, Paper, CircularProgress } from '@mui/material';
+import { Container, Typography, Box, Paper, CircularProgress, Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import { homeService } from '../services/homeService';
 
 const HomePage = () => {
+  const navigate = useNavigate();
   const [homeData, setHomeData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -43,8 +45,8 @@ const HomePage = () => {
   }
 
   return (
-    <Box 
-      component="main" 
+    <Box
+      component="main"
       sx={{
         width: '100%',
         display: 'flex',
@@ -55,15 +57,31 @@ const HomePage = () => {
         overflow: 'hidden'
       }}
     >
-      <Container 
-        disableGutters 
+      <Box sx={{ width: '100%', display: 'flex', justifyContent: 'flex-end', mb: 2, px: { xs: 2, sm: 3, md: 4 } }}>
+        <Button
+          variant="contained"
+          color="primary"
+          sx={{
+            px: 4,
+            py: 1,
+            borderRadius: 2,
+            textTransform: 'none',
+            fontSize: '1rem'
+          }}
+          onClick={() => navigate('/login')}
+        >
+          Sign In
+        </Button>
+      </Box>
+      <Container
+        disableGutters
         sx={{
           width: '100%',
           maxWidth: '1200px !important',
           px: { xs: 2, sm: 3, md: 4 }
         }}
       >
-        <Box 
+        <Box
           sx={{
             textAlign: 'center',
             mb: { xs: 4, md: 6 },
@@ -71,9 +89,9 @@ const HomePage = () => {
             mx: 'auto'
           }}
         >
-          <Typography 
-            variant="h2" 
-            component="h1" 
+          <Typography
+            variant="h2"
+            component="h1"
             gutterBottom
             sx={{
               fontSize: { xs: '2.5rem', md: '3.75rem' },
@@ -82,9 +100,9 @@ const HomePage = () => {
           >
             Welcome to MicroLearn
           </Typography>
-          <Typography 
-            variant="h5" 
-            color="text.secondary" 
+          <Typography
+            variant="h5"
+            color="text.secondary"
             paragraph
             sx={{ fontSize: { xs: '1.1rem', md: '1.5rem' } }}
           >
@@ -92,7 +110,7 @@ const HomePage = () => {
           </Typography>
         </Box>
 
-        <Box 
+        <Box
           sx={{
             display: 'grid',
             gap: { xs: 3, md: 4 },
@@ -122,16 +140,16 @@ const HomePage = () => {
               }}
               elevation={3}
             >
-              <Typography 
-                variant="h6" 
-                component="blockquote" 
+              <Typography
+                variant="h6"
+                component="blockquote"
                 gutterBottom
                 sx={{ fontSize: { xs: '1.1rem', md: '1.25rem' } }}
               >
                 "{quote.text}"
               </Typography>
-              <Typography 
-                variant="subtitle1" 
+              <Typography
+                variant="subtitle1"
                 sx={{
                   mt: 2,
                   textAlign: 'right',
@@ -145,10 +163,10 @@ const HomePage = () => {
         </Box>
 
         <Box sx={{ width: '100%' }}>
-          <Typography 
-            variant="h4" 
-            component="h2" 
-            gutterBottom 
+          <Typography
+            variant="h4"
+            component="h2"
+            gutterBottom
             sx={{
               textAlign: 'center',
               mb: { xs: 3, md: 5 },
@@ -157,7 +175,7 @@ const HomePage = () => {
           >
             Featured Courses
           </Typography>
-          <Box 
+          <Box
             sx={{
               display: 'grid',
               gap: { xs: 3, md: 4 },
@@ -184,8 +202,8 @@ const HomePage = () => {
                 }}
                 elevation={2}
               >
-                <Typography 
-                  variant="h6" 
+                <Typography
+                  variant="h6"
                   gutterBottom
                   sx={{
                     fontSize: { xs: '1.25rem', md: '1.5rem' },
@@ -194,9 +212,9 @@ const HomePage = () => {
                 >
                   {course.title}
                 </Typography>
-                <Typography 
-                  variant="body1" 
-                  color="text.secondary" 
+                <Typography
+                  variant="body1"
+                  color="text.secondary"
                   sx={{ mb: 2, flex: 1 }}
                 >
                   {course.description}

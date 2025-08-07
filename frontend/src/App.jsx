@@ -1,6 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { ThemeProvider, createTheme, CssBaseline, Box } from '@mui/material'
 import HomePage from './pages/HomePage'
+import LoginPage from './pages/LoginPage'
+import SignUpPage from './pages/SignUpPage'
+import ForgotPasswordPage from './pages/ForgotPasswordPage'
 import './App.css'
 
 const theme = createTheme({
@@ -22,7 +25,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Box sx={{ 
+      <Box sx={{
         minHeight: '100vh',
         display: 'flex',
         flexDirection: 'column',
@@ -31,6 +34,9 @@ function App() {
         <Router>
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           </Routes>
         </Router>
       </Box>
