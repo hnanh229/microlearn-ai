@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import {
     Container,
     Box,
@@ -11,6 +11,7 @@ import {
     Alert,
     Grid,
 } from '@mui/material';
+import { signup } from '../services/authService';
 
 const SignUpPage = () => {
     const [formData, setFormData] = useState({
@@ -21,6 +22,7 @@ const SignUpPage = () => {
         confirmPassword: ''
     });
     const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -32,18 +34,16 @@ const SignUpPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        // Basic validation
+        setError('');
         if (formData.password !== formData.confirmPassword) {
             setError('Passwords do not match');
             return;
         }
-
         try {
-            // TODO: Implement signup logic here
-            console.log('Sign up attempt with:', formData);
+            await signup(formData.email, formData.password);
+            navigate('/login', { state: { success: 'Registration successful! Please check your email to verify your account.' } });
         } catch (err) {
-            setError('Registration failed. Please try again.');
+            setError(err.response?.data?.message || 'Registration failed. Please try again.');
         }
     };
 

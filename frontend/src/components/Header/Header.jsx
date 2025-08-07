@@ -1,72 +1,41 @@
-import { useState } from 'react';
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Button,
-  IconButton,
-  Menu,
-  MenuItem,
-  Avatar,
-  Box,
-} from '@mui/material';
+import React from 'react';
+import { Navbar, Nav, Container, Dropdown, Image, NavDropdown } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const navigate = useNavigate();
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // This should come from your auth context/state
 
-  const handleMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleMenuClick = (path) => {
-    navigate(path);
-    handleMenuClose();
+  const handleLogout = () => {
+    // Clear user session (example: localStorage)
+    localStorage.clear();
+    navigate('/login');
   };
 
   return (
-    <AppBar position="static">
-      <Toolbar>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          MicroLearn
-        </Typography>
-        
-        {isLoggedIn ? (
-          <Box>
-            <IconButton onClick={handleMenuOpen}>
-              <Avatar>U</Avatar>
-            </IconButton>
-            <Menu
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={handleMenuClose}
-            >
-              <MenuItem onClick={() => handleMenuClick('/profile')}>Profile</MenuItem>
-              <MenuItem onClick={() => handleMenuClick('/about')}>About</MenuItem>
-              <MenuItem onClick={() => {
-                setIsLoggedIn(false);
-                handleMenuClose();
-              }}>Logout</MenuItem>
-            </Menu>
-          </Box>
-        ) : (
-          <Box>
-            <Button color="inherit" onClick={() => navigate('/login')}>
-              Login
-            </Button>
-            <Button color="inherit" onClick={() => navigate('/signup')}>
-              Sign Up
-            </Button>
-          </Box>
-        )}
-      </Toolbar>
-    </AppBar>
+    <Navbar bg="light" expand="lg" className="shadow-sm">
+      <Container>
+        <Navbar.Brand href="/">MicroLearn</Navbar.Brand>
+        <Navbar.Toggle aria-controls="main-navbar-nav" />
+        <Navbar.Collapse id="main-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link href="/dashboard">Dashboard</Nav.Link>
+            <Nav.Link href="/summary">Summary</Nav.Link>
+            <Nav.Link href="/contact">Contact</Nav.Link>
+          </Nav>
+          <Dropdown align="end">
+            <Dropdown.Toggle variant="light" id="dropdown-avatar" style={{ border: 'none', background: 'none', padding: 0 }}>
+              <Image src="https://ui-avatars.com/api/?name=U" roundedCircle width={36} height={36} alt="avatar" />
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={() => navigate('/profile')}>Profile</Dropdown.Item>
+              <Dropdown.Item onClick={() => navigate('/change-password')}>Change Password</Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item onClick={handleLogout} className="text-danger">Logout</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 };
 

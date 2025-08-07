@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate, useLocation } from 'react-router-dom';
 import {
     Container,
     Box,
@@ -7,9 +7,10 @@ import {
     TextField,
     Button,
     Paper,
-    Link,
-    Alert
+    Alert,
+    Link
 } from '@mui/material';
+import { login } from '../services/authService';
 
 const LoginPage = () => {
     const [formData, setFormData] = useState({
@@ -17,6 +18,9 @@ const LoginPage = () => {
         password: ''
     });
     const [error, setError] = useState('');
+    const navigate = useNavigate();
+    const location = useLocation();
+    const [success, setSuccess] = useState(location.state?.success || '');
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -28,11 +32,17 @@ const LoginPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setError('');
         try {
-            // TODO: Implement login logic here
-            console.log('Login attempt with:', formData);
+            const res = await login(formData.email, formData.password);
+            localStorage.setItem('token', res.data.token);
+            navigate('/dashboard');
         } catch (err) {
-            setError('Login failed. Please check your credentials.');
+            const msg = err.response?.data?.message || 'Login failed. Please check your credentials.';
+            setError(msg);
+            if (msg === 'Email not verified.') {
+                navigate('/resend-verify', { state: { email: formData.email } });
+            }
         }
     };
 
@@ -68,6 +78,12 @@ const LoginPage = () => {
                     >
                         Login to MicroLearn
                     </Typography>
+
+                    {success && (
+                        <Alert severity="success" sx={{ width: '100%', mb: 2 }}>
+                            {success}
+                        </Alert>
+                    )}
 
                     {error && (
                         <Alert severity="error" sx={{ width: '100%', mb: 2 }}>
