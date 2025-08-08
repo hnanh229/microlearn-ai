@@ -40,7 +40,7 @@ const SignUpPage = () => {
             return;
         }
         try {
-            await signup(formData.email, formData.password);
+            await signup(formData.firstName, formData.lastName, formData.email, formData.password);
             navigate('/login', { state: { success: 'Registration successful! Please check your email to verify your account.' } });
         } catch (err) {
             setError(err.response?.data?.message || 'Registration failed. Please try again.');

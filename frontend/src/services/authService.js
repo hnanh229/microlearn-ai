@@ -2,8 +2,8 @@ import axios from 'axios';
 
 const API_URL = '/api/auth';
 
-export const signup = (email, password) =>
-  axios.post(`${API_URL}/signup`, { email, password });
+export const signup = (firstName, lastName, email, password) =>
+  axios.post(`${API_URL}/signup`, { firstName, lastName, email, password });
 
 export const login = (email, password) =>
   axios.post(`${API_URL}/login`, { email, password });

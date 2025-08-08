@@ -6,6 +6,7 @@ router.post('/signup', authController.signup);
 router.post('/verify-email', authController.verifyEmail);
 router.post('/login', authController.login);
 router.post('/resend-verification', authController.resendVerification);
-router.post('/test-sendgrid', authController.testSendGrid);
+router.post('/test-email', authController.testEmail);
+router.get('/debug-config', authController.debugConfig);
 
 module.exports = router;

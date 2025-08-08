@@ -7,6 +7,10 @@ import ForgotPasswordPage from './pages/ForgotPasswordPage'
 import DashboardPage from './pages/DashboardPage'
 import SummaryPage from './pages/SummaryPage'
 import ResendVerifyPage from './pages/ResendVerifyPage'
+import VerifyEmailPage from './pages/VerifyEmailPage'
+import AdminLoginPage from './pages/admin/AdminLoginPage'
+import AdminDashboardPage from './pages/admin/AdminDashboardPage'
+import UserManagementPage from './pages/admin/UserManagementPage'
 import './App.css'
 
 const theme = createTheme({
@@ -43,6 +47,12 @@ function App() {
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/summary" element={<SummaryPage />} />
             <Route path="/resend-verify" element={<ResendVerifyPage />} />
+            <Route path="/verify" element={<VerifyEmailPage />} />
+            
+            {/* Admin Routes */}
+            <Route path="/admin/login" element={<AdminLoginPage />} />
+            <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
+            <Route path="/admin/users" element={<UserManagementPage />} />
           </Routes>
         </Router>
       </Box>
