@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { API_BASE_URL } from '../config/apiConfig';
 
-const API_URL = '/api/admin';
+const API_URL = `${API_BASE_URL}/admin`;
 
 // Create axios instance with admin token
 const adminApi = axios.create({
@@ -34,21 +35,11 @@ export const adminLogin = (username, password) =>
   axios.post(`${API_URL}/login`, { username, password });
 
 // Dashboard
-export const getDashboardStats = () =>
-  adminApi.get('/dashboard/stats');
+export const getDashboardStats = () => adminApi.get('/dashboard/stats');
 
 // User Management
-export const getUsers = (params = {}) =>
-  adminApi.get('/users', { params });
-
-export const getUser = (id) =>
-  adminApi.get(`/users/${id}`);
-
-export const updateUser = (id, userData) =>
-  adminApi.put(`/users/${id}`, userData);
-
-export const deleteUser = (id) =>
-  adminApi.delete(`/users/${id}`);
-
-export const toggleUserVerification = (id) =>
-  adminApi.patch(`/users/${id}/toggle-verification`);
+export const getUsers = (params = {}) => adminApi.get('/users', { params });
+export const getUser = (id) => adminApi.get(`/users/${id}`);
+export const updateUser = (id, userData) => adminApi.put(`/users/${id}`, userData);
+export const deleteUser = (id) => adminApi.delete(`/users/${id}`);
+export const toggleUserVerification = (id) => adminApi.patch(`/users/${id}/toggle-verification`);

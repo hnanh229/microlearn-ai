@@ -1,10 +1,9 @@
 import axios from 'axios';
-
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
+import { API_BASE_URL } from '../config/apiConfig';
 
 export const homeService = {
   getHomePageData: async () => {
-    const response = await axios.get(`${API_URL}/home`);
+    const response = await axios.get(`${API_BASE_URL}/home`);
     return response.data;
   }
 };
