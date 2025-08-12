@@ -38,7 +38,7 @@ function App() {
         flexDirection: 'column',
         bgcolor: 'background.default'
       }}>
-        <Router>
+        <Router basename={import.meta.env.BASE_URL}>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
@@ -48,7 +48,7 @@ function App() {
             <Route path="/summary" element={<SummaryPage />} />
             <Route path="/resend-verify" element={<ResendVerifyPage />} />
             <Route path="/verify" element={<VerifyEmailPage />} />
-            
+
             {/* Admin Routes */}
             <Route path="/admin/login" element={<AdminLoginPage />} />
             <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
