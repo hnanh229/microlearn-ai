@@ -2,8 +2,8 @@ name: Deploy React to GitHub Pages
 
 on:
   push:
-    branches: ["main"] # chạy khi push lên nhánh main
-  workflow_dispatch: # cho phép chạy tay từ tab Actions
+    branches: ["main"]
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -11,26 +11,25 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
     steps:
-      # Lấy code từ repo
       - uses: actions/checkout@v4
 
-      # Cài NodeJS (React cần Node)
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
 
-      # Cài dependencies và build React app
       - name: Install and Build
         run: |
-          cd frontend
           npm install
           npm run build
 
-      # Deploy thư mục build lên GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./frontend/build
+          publish_branch: gh-pages
