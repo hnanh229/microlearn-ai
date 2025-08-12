@@ -14,11 +14,10 @@ const Header = () => {
   return (
     <Navbar bg="light" expand="lg" className="shadow-sm">
       <Container>
-        <Navbar.Brand href="/">MicroLearn</Navbar.Brand>
+        <Navbar.Brand href="/dashboard">MicroLearn</Navbar.Brand>
         <Navbar.Toggle aria-controls="main-navbar-nav" />
         <Navbar.Collapse id="main-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/dashboard">Dashboard</Nav.Link>
             <Nav.Link href="/summary">Summary</Nav.Link>
             <Nav.Link href="/contact">Contact</Nav.Link>
           </Nav>
