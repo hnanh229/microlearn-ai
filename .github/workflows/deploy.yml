@@ -1,26 +1,42 @@
+name: Deploy Frontend to GitHub Pages
+
+on:
+  push:
+    branches: ["main"]    # Chạy khi push lên nhánh main
+  workflow_dispatch:      # Cho phép chạy thủ công từ tab Actions
+
+permissions:
+  contents: write         # Cần quyền ghi để push lên branch gh-pages
+
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: frontend
-    steps:
-      - uses: actions/checkout@v4
+        working-directory: frontend  # Tất cả lệnh chạy trong thư mục frontend
 
+    steps:
+      # 1. Lấy code từ repo
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Cài Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
 
+      # 3. Cài dependencies và build
       - name: Install and Build
         env:
-          VITE_API_URL: ${{ vars.VITE_API_URL }} # Lấy từ GitHub Variables
+          VITE_API_URL: ${{ vars.VITE_API_URL }}  # Lấy từ GitHub Repository Variables
         run: |
           npm install
           npm run build
 
+      # 4. Deploy thư mục build lên GitHub Pages (branch gh-pages)
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./frontend/build
+          publish_dir: ./frontend/dist   # Vite build ra "dist" chứ không phải "buil_
