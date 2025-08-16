@@ -77,7 +77,7 @@ CORS_ORIGIN=http://localhost:5173
 # Database - Replace with your MongoDB connection string
 MONGODB_URI=mongodb://localhost:27017/microlearn-ai
 # For MongoDB Atlas:
-# MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/microlearn-ai?retryWrites=true&w=majority
+# MONGODB_URI=Your_Connection_String_Here?retryWrites=true&w=majority
 
 # JWT Configuration - Generate a strong secret key
 JWT_SECRET=your_super_secret_jwt_key_here_make_it_long_and_secure
