@@ -38,7 +38,7 @@ function App() {
         flexDirection: 'column',
         bgcolor: 'background.default'
       }}>
-        <Router basename={import.meta.env.BASE_URL}>
+        <Router basename="/microlearn-ai">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
