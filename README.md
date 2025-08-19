@@ -161,23 +161,6 @@ Frontend will run on `http://localhost:5173`
 
 ---
 
-## 🔧 Quick Start Scripts
-
-### Windows Users
-```bash
-# Run the setup script
-./setup-local.bat
-```
-
-### Linux/Mac Users
-```bash
-# Make script executable and run
-chmod +x setup-local.sh
-./setup-local.sh
-```
-
----
-
 ## 📦 Project Structure
 
 ```
@@ -250,12 +233,6 @@ microlearn-ai/
 3. Commit your changes (`git commit -m 'Add amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License.
 
 ---
 
