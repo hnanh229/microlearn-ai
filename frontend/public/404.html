@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Redirecting...</title>
+    <script>
+        // Single Page App routing fix for GitHub Pages
+        // https://github.com/rafgraph/spa-github-pages
+        (function () {
+            // This is the GitHub Pages URL pattern
+            var repo = '/microlearn-ai/';
+            var location = window.location;
+
+            // If it's a direct hit without the expected path prefix, redirect
+            var path = location.pathname;
+            var isNotInRepo = path.indexOf(repo) !== 0;
+
+            // Don't redirect if we're already in the repo path or accessing a resource
+            if (isNotInRepo && !path.includes('.')) {
+                var redirectUrl = repo + (path === '/' ? '' : path.replace(/^\//, ''));
+                location.replace(location.protocol + '//' + location.hostname +
+                    (location.port ? ':' + location.port : '') + redirectUrl +
+                    (location.search || '') + (location.hash || ''));
+            }
+        })();
+    </script>
+</head>
+
+<body>
+    <p>Redirecting to the correct URL...</p>
+</body>
+
+</html>

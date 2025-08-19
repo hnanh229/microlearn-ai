@@ -24,7 +24,9 @@ adminApi.interceptors.response.use(
     if (error.response?.status === 401) {
       localStorage.removeItem('adminToken');
       localStorage.removeItem('adminData');
-      window.location.href = '/admin/login';
+      // Use relative URL that will respect basename
+      const basePath = import.meta.env.BASE_URL || '/';
+      window.location.href = `${basePath}admin/login`.replace('//', '/');
     }
     return Promise.reject(error);
   }
