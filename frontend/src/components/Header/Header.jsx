@@ -14,12 +14,12 @@ const Header = () => {
   return (
     <Navbar bg="light" expand="lg" className="shadow-sm">
       <Container>
-        <Navbar.Brand href="/dashboard">MicroLearn</Navbar.Brand>
+        <Navbar.Brand onClick={() => navigate('/dashboard')} style={{ cursor: 'pointer' }}>MicroLearn</Navbar.Brand>
         <Navbar.Toggle aria-controls="main-navbar-nav" />
         <Navbar.Collapse id="main-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/summary">Summary</Nav.Link>
-            <Nav.Link href="/contact">Contact</Nav.Link>
+            <Nav.Link onClick={() => navigate('/summary')} style={{ cursor: 'pointer' }}>Summary</Nav.Link>
+            <Nav.Link onClick={() => navigate('/contact')} style={{ cursor: 'pointer' }}>Contact</Nav.Link>
           </Nav>
           <Dropdown align="end">
             <Dropdown.Toggle variant="light" id="dropdown-avatar" style={{ border: 'none', background: 'none', padding: 0 }}>
