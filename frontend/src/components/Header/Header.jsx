@@ -19,7 +19,8 @@ const Header = () => {
         <Navbar.Collapse id="main-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link onClick={() => navigate('/summary')} style={{ cursor: 'pointer' }}>Summary</Nav.Link>
-            <Nav.Link onClick={() => navigate('/quiz')} style={{ cursor: 'pointer' }}>Quiz</Nav.Link>
+            <Nav.Link onClick={() => navigate('/quiz')} style={{ cursor: 'pointer' }}>Create Quiz</Nav.Link>
+            <Nav.Link onClick={() => navigate('/dashboard')} style={{ cursor: 'pointer' }}>Dashboard</Nav.Link>
             <Nav.Link onClick={() => navigate('/contact')} style={{ cursor: 'pointer' }}>Contact</Nav.Link>
           </Nav>
           <Dropdown align="end">

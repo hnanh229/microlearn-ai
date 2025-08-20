@@ -22,12 +22,14 @@ const homeRoutes = require('./routes/homeRoutes');
 const authRoutes = require('./routes/authRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const summaryRoutes = require('./routes/summaryRoutes');
+const quizRoutes = require('./routes/quizRoutes');
 
 // API routes
 app.use('/api/home', homeRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/summary', summaryRoutes);
+app.use('/api/quizzes', quizRoutes);
 
 // Health check route
 app.get('/health', (req, res) => {
