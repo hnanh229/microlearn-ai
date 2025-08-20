@@ -157,10 +157,10 @@ const SummaryPage = () => {
 
   const promptExamples = [
     "Summarize the main points in bullet format",
-    "Extract key concepts and create a study guide",
-    "Analyze the arguments and provide pros/cons",
-    "Create an executive summary for business purposes",
-    "Explain this content as if teaching to a beginner"
+    "Create a concise summary with key takeaways",
+    "Generate 5 multiple-choice quiz questions",
+    "Create quiz questions with 4 options each",
+    "Summarize in simple language and add practice questions"
   ];
 
   return (
@@ -171,10 +171,20 @@ const SummaryPage = () => {
           <Col xs={12} md={10} lg={8}>
             <Card className="shadow-lg p-3 mb-5 bg-white rounded">
               <Card.Body>
-                <Card.Title as="h2" className="mb-4 text-center">🤖 AI Knowledge Summary</Card.Title>
+                <Card.Title as="h2" className="mb-4 text-center">🤖 AI Study Helper</Card.Title>
                 <Card.Text className="mb-4 text-center text-muted">
-                  Use AI to summarize knowledge from your text or PDF documents with custom prompts for specific analysis.
+                  Generate concise summaries or educational quiz questions from your text or PDF documents.
                 </Card.Text>
+
+                {/* Information callout about capabilities */}
+                <Alert variant="info" className="mb-4">
+                  <strong>ℹ️ Tool Capabilities:</strong>
+                  <ul className="mb-0 mt-1">
+                    <li>Generate summaries to capture key points from your documents</li>
+                    <li>Create educational quiz questions with multiple-choice answers</li>
+                    <li>This tool cannot write stories, poems, or generate inappropriate content</li>
+                  </ul>
+                </Alert>
 
                 {error && (
                   <Alert variant={error.includes('quota exceeded') || error.includes('API quota') ? 'warning' : 'danger'} className="mb-4">
@@ -240,18 +250,18 @@ const SummaryPage = () => {
 
                   {/* Custom Prompt Section - Moved after file upload */}
                   <Form.Group className="mb-4" controlId="customPrompt">
-                    <Form.Label as="h5">� Custom Instructions (Optional)</Form.Label>
+                    <Form.Label as="h5">⚙️ Instructions (Optional)</Form.Label>
                     <Form.Control
                       as="textarea"
                       rows={3}
                       value={customPrompt}
                       onChange={(e) => setCustomPrompt(e.target.value)}
-                      placeholder="e.g., 'Create a detailed summary with key takeaways and action items' or 'Explain in simple terms for a 10-year-old'"
+                      placeholder="e.g., 'Summarize with bullet points' or 'Generate 5 quiz questions with 4 options each'"
                       style={{ fontSize: '1rem', padding: '1rem' }}
                       disabled={loading}
                     />
                     <Form.Text className="text-muted">
-                      <strong>Examples:</strong>
+                      <strong>You can request:</strong> Summaries or educational quiz questions.
                       <div className="mt-2">
                         {promptExamples.map((example, index) => (
                           <Button
@@ -284,7 +294,7 @@ const SummaryPage = () => {
                           {loadingStep || 'Processing...'}
                         </>
                       ) : (
-                        '🚀 Generate Summary'
+                        '🚀 Generate Summary or Quiz Questions'
                       )}
                     </Button>
                     <Button

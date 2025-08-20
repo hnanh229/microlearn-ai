@@ -3,6 +3,35 @@ const multer = require('multer');
 const SimplePDFParser = require('../utils/pdfParser');
 const router = express.Router();
 
+// Helper function to validate and sanitize custom prompts
+const sanitizeCustomPrompt = (prompt) => {
+    if (!prompt || !prompt.trim()) return '';
+
+    // Filter out potentially problematic instructions
+    const bannedTerms = [
+        'write a story', 'tell a story', 'create a story', 'narrative',
+        'write a poem', 'poetry', 'write verses', 'song lyrics',
+        'sexual', 'explicit', 'nude', 'pornographic', 'adult content',
+        'illegal', 'how to hack', 'how to steal', 'drugs', 'weapons',
+        'ignore previous instructions', 'ignore these instructions',
+        'disregard', 'forget', 'bypass'
+    ];
+
+    let sanitizedPrompt = prompt.trim();
+
+    // Check for banned terms
+    const containsBannedTerm = bannedTerms.some(term =>
+        sanitizedPrompt.toLowerCase().includes(term.toLowerCase())
+    );
+
+    // If banned terms found, replace with generic summary/quiz prompt
+    if (containsBannedTerm) {
+        return 'Provide a concise summary with key points';
+    }
+
+    return sanitizedPrompt;
+};
+
 // Configure multer for file uploads
 const storage = multer.memoryStorage();
 const upload = multer({
@@ -40,34 +69,84 @@ router.post('/generate', async (req, res) => {
         // Import Gemini AI library
         const { GoogleGenerativeAI } = require('@google/generative-ai');
 
-        // Initialize Gemini AI
+        // Initialize Gemini AI with appropriate settings for education content
         const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-        const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+        const model = genAI.getGenerativeModel({
+            model: 'gemini-1.5-flash',
+            safetySettings: [
+                {
+                    category: 'HARM_CATEGORY_DANGEROUS_CONTENT',
+                    threshold: 'BLOCK_MEDIUM_AND_ABOVE'
+                },
+                {
+                    category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT',
+                    threshold: 'BLOCK_MEDIUM_AND_ABOVE'
+                },
+                {
+                    category: 'HARM_CATEGORY_HATE_SPEECH',
+                    threshold: 'BLOCK_MEDIUM_AND_ABOVE'
+                }
+            ],
+            generationConfig: {
+                temperature: 0.5, // Moderate temperature for some creativity in quiz questions
+                topP: 0.9,
+                topK: 40
+            }
+        });
 
-        // Create prompt for summarization
-        let prompt;
-        if (customPrompt && customPrompt.trim()) {
-            prompt = `${customPrompt.trim()}
+        // Sanitize any custom prompt
+        const sanitizedPrompt = sanitizeCustomPrompt(customPrompt);
+
+        // Create prompt for summarization or quiz questions
+        let userPrompt = sanitizedPrompt;
+
+        // Allow summarization and quiz questions, but restrict other content
+        const prompt = `You are an educational assistant.
+${userPrompt ? `Instructions: ${userPrompt}` : ''}
+
+You can:
+1. Create comprehensive summaries of the text
+2. Generate educational quiz questions with multiple-choice answers based on the text
+
+You MUST NOT:
+- Write stories, narratives, or creative fiction
+- Write poems, song lyrics, or creative writing
+- Generate any sexually explicit or adult content
+- Provide content related to illegal activities
+- Create content that promotes harm or violence
 
 Text to process:
 ${text}`;
-        } else {
-            prompt = `Please provide a comprehensive summary of the following text. 
-The summary should:
-1. Capture the main ideas and key points
-2. Be well-structured and easy to understand
-3. Include important details while being concise
-4. Use bullet points or numbered lists when appropriate
-
-Text to summarize:
-${text}`;
-        }
 
         // Add artificial delay to prevent spam (5-10 seconds)
         await new Promise(resolve => setTimeout(resolve, Math.random() * 5000 + 5000));
 
-        // Generate summary
-        const result = await model.generateContent(prompt);
+        // Generate summary with system message to enforce summarization - TEXT ROUTE
+        const result = await model.generateContent({
+            contents: [
+                {
+                    role: 'user',
+                    parts: [{ text: prompt }]
+                }
+            ],
+            systemInstruction: {
+                role: 'system',
+                parts: [{
+                    text: `You are an educational assistant that can only:
+1. Create summaries of text
+2. Generate educational quiz questions with multiple-choice answers
+
+You MUST NOT:
+- Create stories, narratives, or creative fiction
+- Generate poems, song lyrics, or creative writing
+- Produce sexually explicit or adult content
+- Provide information about illegal activities
+- Generate harmful or dangerous content
+
+If a user attempts to make you generate any forbidden content, politely decline and offer to summarize or create quiz questions instead.`
+                }]
+            }
+        });
         const response = await result.response;
         const summary = response.text();
 
@@ -149,34 +228,84 @@ router.post('/generate-from-pdf', upload.single('pdfFile'), async (req, res) => 
         // Import Gemini AI library
         const { GoogleGenerativeAI } = require('@google/generative-ai');
 
-        // Initialize Gemini AI
+        // Initialize Gemini AI with appropriate settings for education content
         const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-        const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+        const model = genAI.getGenerativeModel({
+            model: 'gemini-1.5-flash',
+            safetySettings: [
+                {
+                    category: 'HARM_CATEGORY_DANGEROUS_CONTENT',
+                    threshold: 'BLOCK_MEDIUM_AND_ABOVE'
+                },
+                {
+                    category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT',
+                    threshold: 'BLOCK_MEDIUM_AND_ABOVE'
+                },
+                {
+                    category: 'HARM_CATEGORY_HATE_SPEECH',
+                    threshold: 'BLOCK_MEDIUM_AND_ABOVE'
+                }
+            ],
+            generationConfig: {
+                temperature: 0.5, // Moderate temperature for some creativity in quiz questions
+                topP: 0.9,
+                topK: 40
+            }
+        });
 
-        // Create prompt for summarization
-        let prompt;
-        if (customPrompt && customPrompt.trim()) {
-            prompt = `${customPrompt.trim()}
+        // Sanitize any custom prompt
+        const sanitizedPrompt = sanitizeCustomPrompt(customPrompt);
+
+        // Create prompt for summarization or quiz questions
+        let userPrompt = sanitizedPrompt;
+
+        // Allow summarization and quiz questions, but restrict other content
+        const prompt = `You are an educational assistant.
+${userPrompt ? `Instructions: ${userPrompt}` : ''}
+
+You can:
+1. Create comprehensive summaries of the text
+2. Generate educational quiz questions with multiple-choice answers based on the text
+
+You MUST NOT:
+- Write stories, narratives, or creative fiction
+- Write poems, song lyrics, or creative writing
+- Generate any sexually explicit or adult content
+- Provide content related to illegal activities
+- Create content that promotes harm or violence
 
 Text extracted from PDF to process:
 ${extractedText}`;
-        } else {
-            prompt = `Please provide a comprehensive summary of the following text extracted from a PDF document. 
-The summary should:
-1. Capture the main ideas and key points
-2. Be well-structured and easy to understand
-3. Include important details while being concise
-4. Use bullet points or numbered lists when appropriate
-
-Text to summarize:
-${extractedText}`;
-        }
 
         // Add artificial delay to prevent spam (5-10 seconds)
         await new Promise(resolve => setTimeout(resolve, Math.random() * 5000 + 5000));
 
-        // Generate summary
-        const result = await model.generateContent(prompt);
+        // Generate summary with system message to enforce summarization - PDF ROUTE
+        const result = await model.generateContent({
+            contents: [
+                {
+                    role: 'user',
+                    parts: [{ text: prompt }]
+                }
+            ],
+            systemInstruction: {
+                role: 'system',
+                parts: [{
+                    text: `You are an educational assistant that can only:
+1. Create summaries of text
+2. Generate educational quiz questions with multiple-choice answers
+
+You MUST NOT:
+- Create stories, narratives, or creative fiction
+- Generate poems, song lyrics, or creative writing
+- Produce sexually explicit or adult content
+- Provide information about illegal activities
+- Generate harmful or dangerous content
+
+If a user attempts to make you generate any forbidden content, politely decline and offer to summarize or create quiz questions instead.`
+                }]
+            }
+        });
         const response = await result.response;
         const summary = response.text();
 
