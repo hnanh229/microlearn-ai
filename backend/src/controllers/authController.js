@@ -5,17 +5,26 @@ const { sendEmail } = require('../utils/mailer');
 
 const sendVerificationEmail = async (email, token) => {
   const subject = 'Verify your MicroLearn account';
-  const verifyInstructions = `Use this token to verify your account: ${token}`;
+  const verifyInstructions = `Click the verification link to activate your account: ${process.env.CLIENT_VERIFY_URL || 'http://localhost:5173'}/verify-email?token=${token}`;
+  const verifyUrl = `${process.env.CLIENT_VERIFY_URL || 'http://localhost:5173'}/verify-email?token=${token}`;
   const html = `
-    <p>Thanks for signing up for MicroLearn!</p>
-    <p>Please verify your email using this token:</p>
-    <pre style="font-size:16px;padding:12px;background:#f5f5f5;border-radius:6px;">${token}</pre>
-    <p>If your app supports a link, you can also click:
-    <br />
-    <a href="${process.env.CLIENT_VERIFY_URL || 'http://localhost:5173'}?token=${token}">Verify my email</a></p>
-    <p style="color:#666;font-size:14px;margin-top:20px;">
-      ⏰ This verification link will expire in 24 hours. If it expires, you can request a new verification email from the login page.
-    </p>
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px;">
+      <h2 style="color: #4a90e2; text-align: center;">Welcome to MicroLearn!</h2>
+      <p>Thanks for signing up. Please verify your email address to get started.</p>
+      
+      <div style="text-align: center; margin: 30px 0;">
+        <a href="${verifyUrl}" style="background-color: #4a90e2; color: white; padding: 12px 30px; text-decoration: none; border-radius: 4px; font-weight: bold; display: inline-block;">Verify My Email</a>
+      </div>
+      
+      <p>If the button above doesn't work, you can also click this link:</p>
+      <p style="text-align: center;">
+        <a href="${verifyUrl}" style="color: #4a90e2; word-break: break-all;">${verifyUrl}</a>
+      </p>
+      
+      <p style="color:#666; font-size:14px; margin-top:30px; text-align: center; border-top: 1px solid #e0e0e0; padding-top: 15px;">
+        ⏰ This verification link will expire in 24 hours. If it expires, you can request a new verification email from the login page.
+      </p>
+    </div>
   `;
   await sendEmail({ to: email, subject, text: verifyInstructions, html });
 };
@@ -24,11 +33,11 @@ exports.signup = async (req, res) => {
   try {
     console.log('[SIGNUP] Request body:', req.body);
     const { firstName, lastName, email, password } = req.body;
-    
+
     // Validate required fields
     if (!firstName || !lastName || !email || !password) {
-      return res.status(400).json({ 
-        message: 'All fields are required: firstName, lastName, email, password' 
+      return res.status(400).json({
+        message: 'All fields are required: firstName, lastName, email, password'
       });
     }
 
@@ -37,19 +46,19 @@ exports.signup = async (req, res) => {
       console.log('[SIGNUP] Email already registered:', email);
       return res.status(400).json({ message: 'Email already registered.' });
     }
-    
+
     const verificationToken = crypto.randomBytes(32).toString('hex');
     const verificationTokenExpires = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
-    const user = await User.create({ 
-      firstName, 
-      lastName, 
-      email, 
-      password, 
+    const user = await User.create({
+      firstName,
+      lastName,
+      email,
+      password,
       verificationToken,
-      verificationTokenExpires 
+      verificationTokenExpires
     });
     console.log('[SIGNUP] User created:', user._id, user.email);
-    
+
     try {
       await sendVerificationEmail(email, verificationToken);
       console.log('[SIGNUP] Verification email sent to:', email);
@@ -57,8 +66,8 @@ exports.signup = async (req, res) => {
     } catch (emailError) {
       console.error('[SIGNUP] Email sending failed:', emailError.message);
       // Still create the user but inform about email issue
-      res.status(201).json({ 
-        message: 'User registered but verification email failed to send. Please contact support.' 
+      res.status(201).json({
+        message: 'User registered but verification email failed to send. Please contact support.'
       });
     }
   } catch (err) {
@@ -70,11 +79,11 @@ exports.signup = async (req, res) => {
 exports.verifyEmail = async (req, res) => {
   try {
     const { token } = req.body;
-    const user = await User.findOne({ 
+    const user = await User.findOne({
       verificationToken: token,
       verificationTokenExpires: { $gt: new Date() }
     });
-    
+
     if (!user) {
       // Check if token exists but is expired
       const expiredUser = await User.findOne({ verificationToken: token });
@@ -83,12 +92,12 @@ exports.verifyEmail = async (req, res) => {
       }
       return res.status(400).json({ message: 'Invalid verification token.' });
     }
-    
+
     user.isVerified = true;
     user.verificationToken = undefined;
     user.verificationTokenExpires = undefined;
     await user.save();
-    
+
     console.log('[VERIFY] Email verified for user:', user.email);
     res.json({ message: 'Email verified successfully. You can now log in.' });
   } catch (err) {

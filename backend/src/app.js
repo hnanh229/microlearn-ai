@@ -36,4 +36,12 @@ app.get('/health', (req, res) => {
   res.send('Microlearn API is running');
 });
 
+app.get('/api/health', (req, res) => {
+  res.json({
+    status: 'ok',
+    message: 'MicroLearn API is running',
+    timestamp: new Date().toISOString()
+  });
+});
+
 module.exports = app;

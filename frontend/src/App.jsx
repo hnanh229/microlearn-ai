@@ -16,6 +16,7 @@ import TakeQuizPage from './pages/TakeQuizPage'
 import AdminLoginPage from './pages/admin/AdminLoginPage'
 import AdminDashboardPage from './pages/admin/AdminDashboardPage'
 import UserManagementPage from './pages/admin/UserManagementPage'
+import LoadingScreen from './components/LoadingScreen/LoadingScreen'
 import './App.css'
 
 const theme = createTheme({
@@ -37,39 +38,41 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Box sx={{
-        minHeight: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        bgcolor: 'background.default'
-      }}>
-        <Router basename="/microlearn-ai">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/signup" element={<SignUpPage />} />
-            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-            <Route path="/dashboard" element={<DashboardPage />} />
-            <Route path="/summary" element={<SummaryPage />} />
-            <Route path="/resend-verify" element={<ResendVerifyPage />} />
-            <Route path="/verify" element={<VerifyEmailPage />} />
+      <LoadingScreen>
+        <Box sx={{
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          bgcolor: 'background.default'
+        }}>
+          <Router basename="/microlearn-ai">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/signup" element={<SignUpPage />} />
+              <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+              <Route path="/dashboard" element={<DashboardPage />} />
+              <Route path="/summary" element={<SummaryPage />} />
+              <Route path="/resend-verify" element={<ResendVerifyPage />} />
+              <Route path="/verify" element={<VerifyEmailPage />} />
 
-            {/* Quiz Routes */}
-            <Route path="/quiz" element={<CreateQuizPage />} />
-            <Route path="/quiz/:id" element={<QuizDetailPage />} />
-            <Route path="/quiz/:id/edit" element={<EditQuizPage />} />
-            <Route path="/quiz/:id/take" element={<TakeQuizPage />} />
+              {/* Quiz Routes */}
+              <Route path="/quiz" element={<CreateQuizPage />} />
+              <Route path="/quiz/:id" element={<QuizDetailPage />} />
+              <Route path="/quiz/:id/edit" element={<EditQuizPage />} />
+              <Route path="/quiz/:id/take" element={<TakeQuizPage />} />
 
-            {/* Admin Routes */}
-            <Route path="/admin/login" element={<AdminLoginPage />} />
-            <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
-            <Route path="/admin/users" element={<UserManagementPage />} />
-            <Route path="*" element={<HomePage />} />
-          </Routes>
-        </Router>
-      </Box>
+              {/* Admin Routes */}
+              <Route path="/admin/login" element={<AdminLoginPage />} />
+              <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
+              <Route path="/admin/users" element={<UserManagementPage />} />
+              <Route path="*" element={<HomePage />} />
+            </Routes>
+          </Router>
+        </Box>
+      </LoadingScreen>
     </ThemeProvider>
-  )
+  );
 }
 
 export default App
