@@ -6,7 +6,7 @@ AI-powered learning platform.
 
 **🚀 [Try MicroLearn AI Here](https://hnanh229.github.io/microlearn-ai)**
 
-*Test the AI summarization features directly in your browser!*
+*Test the MicroLearn AI features directly in your browser!*
 
 ---
 
@@ -244,4 +244,4 @@ microlearn-ai/
 
 ---
 
-**Made with ❤️ by [hnanh229](https://github.com/hnanh229)**
+**Made with ❤️ by [HN_Anh](https://github.com/hnanh229)**
