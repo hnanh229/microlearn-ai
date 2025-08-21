@@ -210,7 +210,7 @@ const SummaryPage = () => {
                 <Form onSubmit={handleSubmit}>
                   {/* Text Input Section - Moved to top */}
                   <Form.Group className="mb-4" controlId="summaryText">
-                    <Form.Label as="h5">� Paste or Write Your Text</Form.Label>
+                    <Form.Label as="h5">📝 Paste or Write Your Text</Form.Label>
                     <Form.Control
                       as="textarea"
                       rows={10}
