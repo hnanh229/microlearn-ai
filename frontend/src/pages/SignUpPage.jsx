@@ -11,7 +11,7 @@ import {
     Alert,
     Grid,
 } from '@mui/material';
-import { signup } from '../services/authService';
+import authService from '../services/authService';
 
 const SignUpPage = () => {
     const [formData, setFormData] = useState({
@@ -40,7 +40,7 @@ const SignUpPage = () => {
             return;
         }
         try {
-            await signup(formData.firstName, formData.lastName, formData.email, formData.password);
+            await authService.signup(formData.firstName, formData.lastName, formData.email, formData.password);
             navigate('/login', { state: { success: 'Registration successful! Please check your email to verify your account.' } });
         } catch (err) {
             setError(err.response?.data?.message || 'Registration failed. Please try again.');

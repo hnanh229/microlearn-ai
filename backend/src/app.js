@@ -23,6 +23,7 @@ const authRoutes = require('./routes/authRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const summaryRoutes = require('./routes/summaryRoutes');
 const quizRoutes = require('./routes/quizRoutes');
+const profileRoutes = require('./routes/profileRoutes');
 
 // API routes
 app.use('/api/home', homeRoutes);
@@ -30,6 +31,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/summary', summaryRoutes);
 app.use('/api/quizzes', quizRoutes);
+app.use('/api/auth/profile', profileRoutes);
 
 // Health check route
 app.get('/health', (req, res) => {

@@ -30,6 +30,7 @@ AI-powered learning platform.
 - **Material-UI** + **Bootstrap** - Beautiful, responsive UI components
 - **React Router** - Client-side routing
 - **Axios** - HTTP client for API calls
+- **Cloudinary** - Cloud image storage and management
 
 ### Backend
 - **Node.js** + **Express** - RESTful API server
@@ -154,7 +155,20 @@ Frontend will run on `http://localhost:5173`
    - **Cloud**: Create free cluster at [MongoDB Atlas](https://www.mongodb.com/atlas)
    - Copy connection string to `.env` file
 
-3. **Gmail App Password** (optional, for email features):
+3. **Cloudinary Setup** (for profile images):
+   - Create a free account at [Cloudinary](https://cloudinary.com/users/register/free)
+   - Go to your Dashboard to get your Cloud Name
+   - Create an upload preset:
+     - Go to Settings > Upload > Upload presets > Add upload preset
+     - Set Mode to "Unsigned"
+     - Save the preset name
+   - Add to frontend `.env` file:
+     ```
+     VITE_CLOUDINARY_CLOUD_NAME=your_cloud_name
+     VITE_CLOUDINARY_UPLOAD_PRESET=your_upload_preset
+     ```
+
+4. **Gmail App Password** (optional, for email features):
    - Enable 2-Factor Authentication on your Gmail
    - Generate App Password in Google Account settings
    - Use the app password (not your regular password)

@@ -9,7 +9,7 @@ import {
   Paper,
   Alert
 } from '@mui/material';
-import { resendVerification } from '../services/authService';
+import authService from '../services/authService';
 
 const ResendVerifyPage = () => {
   const location = useLocation();
@@ -20,7 +20,7 @@ const ResendVerifyPage = () => {
     e.preventDefault();
     setStatus({ type: '', message: '' });
     try {
-      await resendVerification(email);
+      await authService.resendVerification(email);
       setStatus({ type: 'success', message: 'Verification email sent! Please check your inbox.' });
     } catch (err) {
       setStatus({ type: 'error', message: err.response?.data?.message || 'Failed to resend verification email.' });

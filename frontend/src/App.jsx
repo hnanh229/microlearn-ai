@@ -8,6 +8,7 @@ import DashboardPage from './pages/DashboardPage'
 import SummaryPage from './pages/SummaryPage'
 import ResendVerifyPage from './pages/ResendVerifyPage'
 import VerifyEmailPage from './pages/VerifyEmailPage'
+import ProfilePage from './pages/ProfilePage'
 import CreateQuizPage from './pages/CreateQuizPage'
 import QuizListPage from './pages/QuizListPage'
 import QuizDetailPage from './pages/QuizDetailPage'
@@ -55,6 +56,7 @@ function App() {
               <Route path="/summary" element={<SummaryPage />} />
               <Route path="/resend-verify" element={<ResendVerifyPage />} />
               <Route path="/verify" element={<VerifyEmailPage />} />
+              <Route path="/profile" element={<ProfilePage />} />
 
               {/* Quiz Routes */}
               <Route path="/quiz" element={<CreateQuizPage />} />
@@ -75,4 +77,4 @@ function App() {
   );
 }
 
-export default App
+export default App;

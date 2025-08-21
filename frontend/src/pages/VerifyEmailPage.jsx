@@ -9,7 +9,7 @@ import {
     Alert,
     CircularProgress,
 } from '@mui/material';
-import { verifyEmail } from '../services/authService';
+import authService from '../services/authService';
 
 const VerifyEmailPage = () => {
     const [searchParams] = useSearchParams();
@@ -28,10 +28,10 @@ const VerifyEmailPage = () => {
 
         const verifyToken = async () => {
             try {
-                await verifyEmail(token);
+                await authService.verifyEmail(token);
                 setStatus('success');
                 setMessage('Email verified successfully! You can now log in to your account.');
-                
+
                 // Start countdown for auto-redirect
                 let countdownValue = 3;
                 setCountdown(countdownValue);
@@ -40,8 +40,8 @@ const VerifyEmailPage = () => {
                     setCountdown(countdownValue);
                     if (countdownValue <= 0) {
                         clearInterval(countdownInterval);
-                        navigate('/login', { 
-                            state: { success: 'Email verified successfully! You can now log in to your account.' } 
+                        navigate('/login', {
+                            state: { success: 'Email verified successfully! You can now log in to your account.' }
                         });
                     }
                 }, 1000);
@@ -50,7 +50,7 @@ const VerifyEmailPage = () => {
                 if (errorMsg.includes('expired') || errorMsg.includes('Invalid')) {
                     setStatus('expired');
                     setMessage('This verification link has expired or is invalid. Please request a new verification email.');
-                    
+
                     // Start countdown for auto-redirect
                     let countdownValue = 4;
                     setCountdown(countdownValue);

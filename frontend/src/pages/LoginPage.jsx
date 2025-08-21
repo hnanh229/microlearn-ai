@@ -10,7 +10,7 @@ import {
     Alert,
     Link
 } from '@mui/material';
-import { login } from '../services/authService';
+import authService from '../services/authService';
 
 const LoginPage = () => {
     const [formData, setFormData] = useState({
@@ -34,7 +34,7 @@ const LoginPage = () => {
         e.preventDefault();
         setError('');
         try {
-            const res = await login(formData.email, formData.password);
+            const res = await authService.login(formData.email, formData.password);
             localStorage.setItem('token', res.data.token);
             navigate('/dashboard');
         } catch (err) {
