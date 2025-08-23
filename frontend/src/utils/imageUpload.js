@@ -16,6 +16,14 @@ export const uploadImageToCloudinary = async (file) => {
         formData.append('file', file);
         formData.append('upload_preset', import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET);
 
+        // Log the upload info for debugging (remove in production)
+        console.log('Uploading to Cloudinary with:', {
+            cloudName: import.meta.env.VITE_CLOUDINARY_CLOUD_NAME,
+            uploadPreset: import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET,
+            fileType: file.type,
+            fileSize: `${(file.size / 1024 / 1024).toFixed(2)}MB`
+        });
+
         // Upload to Cloudinary
         const response = await fetch(
             `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/upload`,
@@ -26,7 +34,10 @@ export const uploadImageToCloudinary = async (file) => {
         );
 
         if (!response.ok) {
-            throw new Error('Failed to upload image');
+            // Get the detailed error message from Cloudinary
+            const errorData = await response.json().catch(() => ({}));
+            console.error('Cloudinary error response:', errorData);
+            throw new Error(`Failed to upload image: ${errorData.error?.message || response.statusText}`);
         }
 
         const data = await response.json();

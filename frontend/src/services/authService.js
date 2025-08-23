@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { API_BASE_URL } from '../config/apiConfig';
+import eventBus from '../utils/eventBus';
 
 const API_URL = `${API_BASE_URL}/auth`;
 
@@ -34,6 +35,15 @@ const authService = {
   updateUserProfile: async (userData) => {
     try {
       const response = await axios.put(`${API_URL}/profile`, userData, getAuthHeader());
+
+      // Update the user data in localStorage
+      const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
+      const updatedUser = { ...currentUser, ...userData };
+      localStorage.setItem('user', JSON.stringify(updatedUser));
+
+      // Notify other components about the profile update
+      eventBus.publish('userProfileUpdated', updatedUser);
+
       return response.data;
     } catch (error) {
       throw error;

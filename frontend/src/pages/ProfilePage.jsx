@@ -112,6 +112,12 @@ const ProfilePage = () => {
             setUser(updatedUser);
             setSuccess('Profile updated successfully!');
             setLoading(false);
+
+            // Force a refresh to ensure the header updates
+            setTimeout(() => {
+                // This will trigger a re-render across the app
+                window.dispatchEvent(new Event('storage'));
+            }, 100);;
         } catch (err) {
             setError('Failed to update profile. Please try again.');
             setLoading(false);
