@@ -13,8 +13,16 @@ const LoadingScreen = ({ children }) => {
         const checkServerStatus = async () => {
             try {
                 setStatus('Waking up the server...');
+
+                // Create URL properly without double /api/api
+                let healthUrl = API_BASE_URL;
+                // If we're on GitHub Pages with the render.com URL that already has /api
+                if (healthUrl.includes('microlearn-ai.onrender.com/api')) {
+                    healthUrl = healthUrl.replace('/api', ''); // Remove the existing /api
+                }
+
                 // Use health endpoint to check if server is up
-                const response = await axios.get(`${API_BASE_URL}/api/health`, { timeout: 10000 });
+                const response = await axios.get(`${healthUrl}/api/health`, { timeout: 10000 });
                 if (response.status === 200) {
                     setLoading(false);
                 }
