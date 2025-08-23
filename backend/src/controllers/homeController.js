@@ -40,8 +40,11 @@ const homePageData = {
 
 const getHomePageData = async (req, res) => {
   try {
+    console.log('Getting homepage data...');
     res.json(homePageData);
+    console.log('Homepage data sent successfully');
   } catch (error) {
+    console.error('Error fetching homepage data:', error);
     res.status(500).json({ message: 'Error fetching homepage data' });
   }
 };

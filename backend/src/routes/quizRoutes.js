@@ -34,10 +34,16 @@ const upload = multer({
 
 // Public routes
 router.get('/public', quizControllers.getPublicQuizzes);
-router.get('/:id', quizControllers.getQuizById);
 
 // Protected routes - require authentication
 router.use(authMiddleware);
+
+// Create quiz from file uploads - these must come BEFORE the /:id routes
+router.post('/upload/pdf', upload.single('pdfFile'), quizControllers.createQuizFromPDF);
+router.post('/upload/text', upload.single('textFile'), quizControllers.createQuizFromTextFile);
+
+// AI-generated quiz
+router.post('/ai', quizControllers.createQuizWithAI);
 
 // Quiz CRUD operations
 router.post('/', quizControllers.createQuiz);
@@ -49,11 +55,7 @@ router.delete('/:id', quizControllers.deleteQuiz);
 router.post('/:id/submit', quizControllers.submitQuizAnswers);
 router.get('/:id/submissions', quizControllers.getQuizSubmissions);
 
-// Create quiz from file uploads
-router.post('/upload/pdf', upload.single('pdfFile'), quizControllers.createQuizFromPDF);
-router.post('/upload/text', upload.single('textFile'), quizControllers.createQuizFromTextFile);
-
-// AI-generated quiz
-router.post('/ai', quizControllers.createQuizWithAI);
+// Get quiz by ID - must be last to avoid route conflicts
+router.get('/:id', quizControllers.getQuizById);
 
 module.exports = router;

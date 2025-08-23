@@ -62,7 +62,7 @@ const EditQuizPage = () => {
         } catch (error) {
             console.error('Error fetching quiz:', error);
             toast.error('Failed to load quiz. Please try again later.');
-            navigate('/quizzes');
+            navigate('/quiz-list');
         } finally {
             setLoading(false);
         }
@@ -306,8 +306,8 @@ const EditQuizPage = () => {
                                         value={formData.title}
                                         onChange={handleChange}
                                         className={`w-full px-4 py-3 border-2 rounded-xl font-orbitron text-lg bg-black/60 text-white placeholder:text-pink-200 focus:ring-2 focus:ring-yellow-400 transition-colors shadow-lg ${errors.title
-                                                ? "border-red-500 focus:ring-red-200"
-                                                : "border-pink-400 focus:border-yellow-400"
+                                            ? "border-red-500 focus:ring-red-200"
+                                            : "border-pink-400 focus:border-yellow-400"
                                             }`}
                                         placeholder="Enter a title for your quiz"
                                     />
@@ -336,8 +336,8 @@ const EditQuizPage = () => {
                                         onChange={handleChange}
                                         rows="3"
                                         className={`w-full px-4 py-3 border-2 rounded-xl font-orbitron text-lg bg-black/60 text-white placeholder:text-pink-200 focus:ring-2 focus:ring-yellow-400 transition-colors shadow-lg ${errors.description
-                                                ? "border-red-500 focus:ring-red-200"
-                                                : "border-pink-400 focus:border-yellow-400"
+                                            ? "border-red-500 focus:ring-red-200"
+                                            : "border-pink-400 focus:border-yellow-400"
                                             }`}
                                         placeholder="Describe what this quiz is about"
                                     ></textarea>
@@ -442,8 +442,8 @@ const EditQuizPage = () => {
                                                         )
                                                     }
                                                     className={`w-full px-4 py-3 border-2 rounded-xl font-orbitron text-lg bg-black/60 text-white placeholder:text-pink-200 focus:ring-2 focus:ring-yellow-400 transition-colors shadow-lg ${errors[`question_${questionIndex}`]
-                                                            ? "border-red-500 focus:ring-red-200"
-                                                            : "border-pink-400 focus:border-yellow-400"
+                                                        ? "border-red-500 focus:ring-red-200"
+                                                        : "border-pink-400 focus:border-yellow-400"
                                                         }`}
                                                     placeholder="Enter your question"
                                                 />
@@ -487,8 +487,8 @@ const EditQuizPage = () => {
                                                                 )
                                                             }
                                                             className={`flex-1 px-4 py-3 border-2 rounded-xl font-orbitron text-lg bg-black/60 text-white placeholder:text-pink-200 focus:ring-2 focus:ring-yellow-400 transition-colors shadow-lg ${errors[`option_${questionIndex}_${optionIndex}`]
-                                                                    ? "border-red-500 focus:ring-red-200"
-                                                                    : "border-pink-400 focus:border-yellow-400"
+                                                                ? "border-red-500 focus:ring-red-200"
+                                                                : "border-pink-400 focus:border-yellow-400"
                                                                 }`}
                                                             placeholder={`Option ${optionIndex + 1}`}
                                                         />

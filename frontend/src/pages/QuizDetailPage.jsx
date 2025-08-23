@@ -41,7 +41,7 @@ const QuizDetailPage = () => {
         } catch (error) {
             console.error('Error fetching quiz:', error);
             toast.error('Failed to load quiz. Please try again later.');
-            navigate('/quizzes');
+            navigate('/quiz-list');
         } finally {
             setLoading(false);
         }
@@ -55,7 +55,7 @@ const QuizDetailPage = () => {
         try {
             await quizService.deleteQuiz(id);
             toast.success('Quiz deleted successfully');
-            navigate('/quizzes');
+            navigate('/quiz-list');
         } catch (error) {
             console.error('Error deleting quiz:', error);
             toast.error('Failed to delete quiz. Please try again later.');
@@ -104,7 +104,7 @@ const QuizDetailPage = () => {
                 <div className="text-center text-white">
                     <h2 className="text-2xl font-bold mb-4">Quiz not found</h2>
                     <button
-                        onClick={() => navigate('/quizzes')}
+                        onClick={() => navigate('/quiz-list')}
                         className="px-6 py-3 bg-pink-600 rounded-xl font-bold hover:bg-pink-700 transition-colors"
                     >
                         Back to Quizzes
@@ -260,13 +260,13 @@ const QuizDetailPage = () => {
                                                         <div
                                                             key={optIndex}
                                                             className={`p-3 rounded-lg font-orbitron flex items-center ${option.isCorrect
-                                                                    ? 'bg-green-800/50 text-green-300 border border-green-500'
-                                                                    : 'bg-black/60 text-pink-200'
+                                                                ? 'bg-green-800/50 text-green-300 border border-green-500'
+                                                                : 'bg-black/60 text-pink-200'
                                                                 }`}
                                                         >
                                                             <div className={`w-6 h-6 rounded-full flex items-center justify-center mr-3 ${option.isCorrect
-                                                                    ? 'bg-green-500 text-white'
-                                                                    : 'bg-pink-400/40 text-white'
+                                                                ? 'bg-green-500 text-white'
+                                                                : 'bg-pink-400/40 text-white'
                                                                 }`}>
                                                                 {String.fromCharCode(65 + optIndex)}
                                                             </div>
@@ -313,10 +313,10 @@ const QuizDetailPage = () => {
                                                         </td>
                                                         <td className="px-4 py-3 font-orbitron">
                                                             <span className={`px-2 py-1 rounded-lg ${submission.score >= 70
-                                                                    ? 'bg-green-900/40 text-green-300'
-                                                                    : submission.score >= 50
-                                                                        ? 'bg-yellow-900/40 text-yellow-300'
-                                                                        : 'bg-red-900/40 text-red-300'
+                                                                ? 'bg-green-900/40 text-green-300'
+                                                                : submission.score >= 50
+                                                                    ? 'bg-yellow-900/40 text-yellow-300'
+                                                                    : 'bg-red-900/40 text-red-300'
                                                                 }`}>
                                                                 {submission.score.toFixed(0)}%
                                                             </span>
@@ -340,7 +340,7 @@ const QuizDetailPage = () => {
 
                 <div className="flex justify-center">
                     <button
-                        onClick={() => navigate('/quizzes')}
+                        onClick={() => navigate('/quiz-list')}
                         className="px-6 py-3 bg-black/60 text-pink-200 font-bold rounded-xl border-2 border-pink-400/40 font-orbitron hover:bg-pink-900/40 transition-colors"
                     >
                         Back to Quizzes

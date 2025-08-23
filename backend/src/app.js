@@ -9,7 +9,7 @@ const app = express();
 // Middleware
 const allowedOrigins = process.env.CORS_ORIGIN
   ? process.env.CORS_ORIGIN.split(',')
-  : ['http://localhost:5173'];
+  : ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:5175'];
 
 app.use(cors({
   origin: allowedOrigins,
@@ -32,6 +32,14 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/summary', summaryRoutes);
 app.use('/api/quizzes', quizRoutes);
 app.use('/api/auth/profile', profileRoutes);
+
+// Also mount routes without /api prefix for compatibility
+app.use('/home', homeRoutes);
+app.use('/auth', authRoutes);
+app.use('/admin', adminRoutes);
+app.use('/summary', summaryRoutes);
+app.use('/quizzes', quizRoutes);
+app.use('/auth/profile', profileRoutes);
 
 // Health check route
 app.get('/health', (req, res) => {

@@ -58,7 +58,7 @@ const TakeQuizPage = () => {
         } catch (error) {
             console.error('Error fetching quiz:', error);
             toast.error('Failed to load quiz. Please try again later.');
-            navigate('/quizzes');
+            navigate('/quiz-list');
         } finally {
             setLoading(false);
         }
@@ -131,7 +131,7 @@ const TakeQuizPage = () => {
                 <div className="text-center text-white">
                     <h2 className="text-2xl font-bold mb-4">Quiz not found</h2>
                     <button
-                        onClick={() => navigate('/quizzes')}
+                        onClick={() => navigate('/quiz-list')}
                         className="px-6 py-3 bg-pink-600 rounded-xl font-bold hover:bg-pink-700 transition-colors"
                     >
                         Back to Quizzes
@@ -220,7 +220,7 @@ const TakeQuizPage = () => {
 
                             <div className="flex space-x-4">
                                 <button
-                                    onClick={() => navigate('/quizzes')}
+                                    onClick={() => navigate('/quiz-list')}
                                     className="flex-1 py-3 px-6 bg-gradient-to-r from-indigo-500 to-purple-600 text-white font-bold rounded-xl font-orbitron hover:from-indigo-600 hover:to-purple-700 transition-colors"
                                 >
                                     Back to Quizzes
@@ -309,16 +309,16 @@ const TakeQuizPage = () => {
                                                 key={optionIndex}
                                                 onClick={() => handleOptionSelect(currentQuestion._id, optionIndex)}
                                                 className={`w-full text-left p-4 rounded-xl border-2 transition-all font-orbitron ${selectedOptions[currentQuestion._id] === optionIndex
-                                                        ? 'bg-gradient-to-r from-yellow-400 to-pink-500 text-white border-white'
-                                                        : 'bg-black/60 text-white border-pink-400/40 hover:border-pink-400'
+                                                    ? 'bg-gradient-to-r from-yellow-400 to-pink-500 text-white border-white'
+                                                    : 'bg-black/60 text-white border-pink-400/40 hover:border-pink-400'
                                                     }`}
                                                 whileHover={{ scale: 1.02 }}
                                                 whileTap={{ scale: 0.98 }}
                                             >
                                                 <div className="flex items-center">
                                                     <div className={`w-6 h-6 rounded-full flex items-center justify-center mr-3 ${selectedOptions[currentQuestion._id] === optionIndex
-                                                            ? 'bg-white text-pink-500'
-                                                            : 'bg-pink-400/40 text-white'
+                                                        ? 'bg-white text-pink-500'
+                                                        : 'bg-pink-400/40 text-white'
                                                         }`}>
                                                         {String.fromCharCode(65 + optionIndex)}
                                                     </div>
@@ -336,8 +336,8 @@ const TakeQuizPage = () => {
                                 onClick={prevQuestion}
                                 disabled={currentQuestionIndex === 0}
                                 className={`px-4 py-2 rounded-xl font-orbitron flex items-center ${currentQuestionIndex === 0
-                                        ? 'bg-gray-700 text-gray-400 cursor-not-allowed'
-                                        : 'bg-indigo-600 text-white hover:bg-indigo-700'
+                                    ? 'bg-gray-700 text-gray-400 cursor-not-allowed'
+                                    : 'bg-indigo-600 text-white hover:bg-indigo-700'
                                     }`}
                             >
                                 <FaChevronLeft className="mr-1" /> Previous
@@ -355,8 +355,8 @@ const TakeQuizPage = () => {
                                     onClick={handleSubmit}
                                     disabled={!isQuizCompleted()}
                                     className={`px-6 py-2 rounded-xl font-orbitron flex items-center ${isQuizCompleted()
-                                            ? 'bg-gradient-to-r from-yellow-400 to-pink-500 text-white hover:from-pink-500 hover:to-yellow-400'
-                                            : 'bg-gray-700 text-gray-400 cursor-not-allowed'
+                                        ? 'bg-gradient-to-r from-yellow-400 to-pink-500 text-white hover:from-pink-500 hover:to-yellow-400'
+                                        : 'bg-gray-700 text-gray-400 cursor-not-allowed'
                                         }`}
                                 >
                                     Submit Quiz
@@ -374,10 +374,10 @@ const TakeQuizPage = () => {
                                     key={index}
                                     onClick={() => setCurrentQuestionIndex(index)}
                                     className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${currentQuestionIndex === index
-                                            ? 'bg-gradient-to-r from-yellow-400 to-pink-500 text-white'
-                                            : selectedOptions[quiz.questions[index]._id] !== null
-                                                ? 'bg-green-500 text-white'
-                                                : 'bg-gray-700 text-white'
+                                        ? 'bg-gradient-to-r from-yellow-400 to-pink-500 text-white'
+                                        : selectedOptions[quiz.questions[index]._id] !== null
+                                            ? 'bg-green-500 text-white'
+                                            : 'bg-gray-700 text-white'
                                         }`}
                                 >
                                     {index + 1}

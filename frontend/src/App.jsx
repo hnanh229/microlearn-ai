@@ -59,15 +59,19 @@ function App() {
               <Route path="/profile" element={<ProfilePage />} />
 
               {/* Quiz Routes */}
-              <Route path="/quiz" element={<CreateQuizPage />} />
+              <Route path="/create-quiz" element={<CreateQuizPage />} />
+              <Route path="/quiz-list" element={<QuizListPage />} />
+              <Route path="/public-quizzes" element={<QuizListPage />} />
               <Route path="/quiz/:id" element={<QuizDetailPage />} />
-              <Route path="/quiz/:id/edit" element={<EditQuizPage />} />
-              <Route path="/quiz/:id/take" element={<TakeQuizPage />} />
+              <Route path="/edit-quiz/:id" element={<EditQuizPage />} />
+              <Route path="/take-quiz/:id" element={<TakeQuizPage />} />
 
               {/* Admin Routes */}
               <Route path="/admin/login" element={<AdminLoginPage />} />
               <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
               <Route path="/admin/users" element={<UserManagementPage />} />
+
+              {/* Catch-all route - must be last */}
               <Route path="*" element={<HomePage />} />
             </Routes>
           </Router>

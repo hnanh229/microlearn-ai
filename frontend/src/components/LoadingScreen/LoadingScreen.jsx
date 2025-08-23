@@ -14,7 +14,7 @@ const LoadingScreen = ({ children }) => {
             try {
                 setStatus('Waking up the server...');
                 // Use health endpoint to check if server is up
-                const response = await axios.get(`${API_BASE_URL}/health`, { timeout: 10000 });
+                const response = await axios.get(`${API_BASE_URL}/api/health`, { timeout: 10000 });
                 if (response.status === 200) {
                     setLoading(false);
                 }
