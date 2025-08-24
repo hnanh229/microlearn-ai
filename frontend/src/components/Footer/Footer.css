@@ -1,0 +1,133 @@
+/* Footer Styling */
+footer {
+    background: linear-gradient(to right, #f8f9fa, #f1f3f5) !important;
+    padding-top: 3rem !important;
+    padding-bottom: 1.5rem;
+    position: relative;
+}
+
+footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #6a11cb, #2575fc);
+}
+
+footer h5 {
+    position: relative;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: #343a40;
+}
+
+footer h5::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: #2575fc;
+}
+
+footer p {
+    color: #6c757d;
+    line-height: 1.7;
+}
+
+footer ul li {
+    margin-bottom: 0.75rem;
+}
+
+footer ul li a {
+    color: #495057 !important;
+    text-decoration: none;
+    transition: all 0.2s;
+    position: relative;
+    padding-left: 0;
+}
+
+footer ul li a::before {
+    content: '→';
+    position: absolute;
+    left: -20px;
+    opacity: 0;
+    transition: all 0.3s;
+}
+
+footer ul li a:hover {
+    color: #2575fc !important;
+    padding-left: 20px;
+}
+
+footer ul li a:hover::before {
+    opacity: 1;
+    left: 0;
+}
+
+.footer-contact-info {
+    color: #6c757d;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.footer-contact-info svg {
+    margin-right: 10px;
+    color: #2575fc;
+}
+
+.footer-bottom {
+    padding-top: 1.5rem;
+    margin-top: 2rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.05) !important;
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.social-links {
+    margin-top: 1rem;
+}
+
+.social-links a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background-color: #e9ecef;
+    color: #495057;
+    margin-right: 0.5rem;
+    transition: all 0.3s;
+}
+
+.social-links a:hover {
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: white;
+    transform: translateY(-3px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    footer {
+        text-align: center;
+    }
+
+    footer h5::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .footer-contact-info {
+        justify-content: center;
+    }
+
+    .social-links {
+        display: flex;
+        justify-content: center;
+    }
+}
