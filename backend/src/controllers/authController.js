@@ -5,8 +5,18 @@ const { sendEmail } = require('../utils/mailer');
 
 const sendVerificationEmail = async (email, token) => {
   const subject = 'Verify your MicroLearn account';
-  const verifyInstructions = `Click the verification link to activate your account: ${process.env.CLIENT_VERIFY_URL || 'http://localhost:5173'}/verify-email?token=${token}`;
-  const verifyUrl = `${process.env.CLIENT_VERIFY_URL || 'http://localhost:5173'}/verify-email?token=${token}`;
+  
+  // Determine the base URL based on environment
+  let baseUrl = process.env.CLIENT_VERIFY_URL || 'http://localhost:5173';
+  
+  // For production deployment on GitHub Pages
+  if (process.env.NODE_ENV === 'production' || baseUrl.includes('github.io')) {
+    baseUrl = 'https://hnanh229.github.io/microlearn-ai';
+  }
+  
+  const verifyUrl = `${baseUrl}/verify-email?token=${token}`;
+  const verifyInstructions = `Click the verification link to activate your account: ${verifyUrl}`;
+  
   const html = `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px;">
       <h2 style="color: #4a90e2; text-align: center;">Welcome to MicroLearn!</h2>
@@ -164,4 +174,35 @@ exports.debugConfig = async (req, res) => {
       MONGODB_URI: process.env.MONGODB_URI ? 'SET' : 'NOT SET'
     }
   });
+};
+
+// Check user account status
+exports.checkStatus = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      return res.status(400).json({ message: 'Email is required' });
+    }
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    return res.status(200).json({
+      message: 'User status retrieved',
+      status: {
+        email: user.email,
+        isVerified: user.isVerified,
+        hasVerificationToken: !!user.verificationToken,
+        verificationExpires: user.verificationTokenExpires,
+        isExpired: user.verificationTokenExpires ? (new Date() > user.verificationTokenExpires) : false
+      }
+    });
+  } catch (err) {
+    console.error('[CHECK-STATUS] Error:', err);
+    return res.status(500).json({ message: 'Server error.' });
+  }
 };

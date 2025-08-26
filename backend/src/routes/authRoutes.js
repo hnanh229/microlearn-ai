@@ -8,5 +8,6 @@ router.post('/login', authController.login);
 router.post('/resend-verification', authController.resendVerification);
 router.post('/test-email', authController.testEmail);
 router.get('/debug-config', authController.debugConfig);
+router.post('/check-status', authController.checkStatus);
 
 module.exports = router;

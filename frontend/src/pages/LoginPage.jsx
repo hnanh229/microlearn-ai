@@ -40,8 +40,25 @@ const LoginPage = () => {
         } catch (err) {
             const msg = err.response?.data?.message || 'Login failed. Please check your credentials.';
             setError(msg);
-            if (msg === 'Email not verified.') {
-                navigate('/resend-verify', { state: { email: formData.email } });
+
+            // If we get a 403 forbidden error, it's likely the email isn't verified
+            if (err.response?.status === 403 || msg === 'Email not verified.') {
+                try {
+                    // Get detailed account status
+                    const statusRes = await authService.checkStatus(formData.email);
+                    const status = statusRes.data.status;
+
+                    if (!status.isVerified) {
+                        if (status.isExpired) {
+                            setError('Your verification link has expired. You need to request a new one.');
+                        } else {
+                            setError('Your email is not verified. Please check your inbox for a verification email or request a new one.');
+                        }
+                        navigate('/resend-verify', { state: { email: formData.email } });
+                    }
+                } catch (statusErr) {
+                    console.error('Error checking account status:', statusErr);
+                }
             }
         }
     };

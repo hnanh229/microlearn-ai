@@ -10,17 +10,18 @@ import './HomePage.css';
 // Function to get course images based on category
 const getCourseImage = (category) => {
   const lowerCategory = category?.toLowerCase() || '';
+  const imgSize = 'w_400,h_300,c_fill';
 
   // Define specific images for common categories
   const categoryImages = {
-    'technology': 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=640&auto=format&fit=crop',
-    'programming': 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=640&auto=format&fit=crop',
-    'business': 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=640&auto=format&fit=crop',
-    'marketing': 'https://images.unsplash.com/photo-1533750349088-cd871a92f312?q=80&w=640&auto=format&fit=crop',
-    'design': 'https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=640&auto=format&fit=crop',
-    'science': 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=640&auto=format&fit=crop',
-    'health': 'https://images.unsplash.com/photo-1505751172876-fa1923c5c528?q=80&w=640&auto=format&fit=crop',
-    'language': 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?q=80&w=640&auto=format&fit=crop',
+    'technology': `https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&${imgSize}&auto=format&fit=crop`,
+    'programming': `https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&${imgSize}&auto=format&fit=crop`,
+    'business': `https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&${imgSize}&auto=format&fit=crop`,
+    'marketing': `https://images.unsplash.com/photo-1533750349088-cd871a92f312?q=80&${imgSize}&auto=format&fit=crop`,
+    'design': `https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&${imgSize}&auto=format&fit=crop`,
+    'science': `https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&${imgSize}&auto=format&fit=crop`,
+    'health': `https://images.unsplash.com/photo-1505751172876-fa1923c5c528?q=80&${imgSize}&auto=format&fit=crop`,
+    'language': `https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?q=80&${imgSize}&auto=format&fit=crop`,
   };
 
   // Check if category exists in our mapping
@@ -28,39 +29,31 @@ const getCourseImage = (category) => {
     return categoryImages[lowerCategory];
   }
 
-  // For unknown categories, use a default image based on the first letter
+  // Use a generic image set based on first letter of category
   const firstLetter = lowerCategory ? lowerCategory[0] : 'e';
-  const defaultImages = {
-    'a': 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=640&auto=format&fit=crop',
-    'b': 'https://images.unsplash.com/photo-1606761568499-6d2451b23c66?q=80&w=640&auto=format&fit=crop',
-    'c': 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=640&auto=format&fit=crop',
-    'd': 'https://images.unsplash.com/photo-1513258496099-48168024aec0?q=80&w=640&auto=format&fit=crop',
-    'e': 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=640&auto=format&fit=crop',
-    'f': 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=640&auto=format&fit=crop',
-    'g': 'https://images.unsplash.com/photo-1560785496-3c9d27877182?q=80&w=640&auto=format&fit=crop',
-    'h': 'https://images.unsplash.com/photo-1507413245164-6160d8298b31?q=80&w=640&auto=format&fit=crop',
-    'i': 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=640&auto=format&fit=crop',
-    'j': 'https://images.unsplash.com/photo-1606761568499-6d2451b23c66?q=80&w=640&auto=format&fit=crop',
-    'k': 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=640&auto=format&fit=crop',
-    'l': 'https://images.unsplash.com/photo-1513258496099-48168024aec0?q=80&w=640&auto=format&fit=crop',
-    'm': 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=640&auto=format&fit=crop',
-    'n': 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=640&auto=format&fit=crop',
-    'o': 'https://images.unsplash.com/photo-1560785496-3c9d27877182?q=80&w=640&auto=format&fit=crop',
-    'p': 'https://images.unsplash.com/photo-1507413245164-6160d8298b31?q=80&w=640&auto=format&fit=crop',
-    'q': 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=640&auto=format&fit=crop',
-    'r': 'https://images.unsplash.com/photo-1606761568499-6d2451b23c66?q=80&w=640&auto=format&fit=crop',
-    's': 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=640&auto=format&fit=crop',
-    't': 'https://images.unsplash.com/photo-1513258496099-48168024aec0?q=80&w=640&auto=format&fit=crop',
-    'u': 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=640&auto=format&fit=crop',
-    'v': 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=640&auto=format&fit=crop',
-    'w': 'https://images.unsplash.com/photo-1560785496-3c9d27877182?q=80&w=640&auto=format&fit=crop',
-    'x': 'https://images.unsplash.com/photo-1507413245164-6160d8298b31?q=80&w=640&auto=format&fit=crop',
-    'y': 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=640&auto=format&fit=crop',
-    'z': 'https://images.unsplash.com/photo-1606761568499-6d2451b23c66?q=80&w=640&auto=format&fit=crop',
+
+  // Map of image IDs organized by first letter
+  const imageGroups = {
+    'a-f': 'photo-1516321318423-f06f85e504b3',
+    'g-l': 'photo-1507413245164-6160d8298b31',
+    'm-r': 'photo-1560785496-3c9d27877182',
+    's-z': 'photo-1434030216411-0b793f4b4173',
   };
 
-  // Use the first letter mapping or fallback to the Cloudinary default image
-  return defaultImages[firstLetter] || 'https://res.cloudinary.com/di8a3pdgu/image/upload/cld-sample-2';
+  // Determine which group this letter belongs to
+  let imageId;
+  if ('abcdef'.includes(firstLetter)) {
+    imageId = imageGroups['a-f'];
+  } else if ('ghijkl'.includes(firstLetter)) {
+    imageId = imageGroups['g-l'];
+  } else if ('mnopqr'.includes(firstLetter)) {
+    imageId = imageGroups['m-r'];
+  } else {
+    imageId = imageGroups['s-z'];
+  }
+
+  // Return the appropriate image URL with size parameters
+  return `https://images.unsplash.com/${imageId}?q=80&${imgSize}&auto=format&fit=crop`;
 };
 
 // Image component with loading state
@@ -68,14 +61,39 @@ const CourseImage = ({ course }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
-  // Try to use category-specific image first
-  const primaryImageUrl = getCourseImage(course.category);
+  // Reliable Cloudinary fallback images with optimized parameters
+  const CLOUDINARY_FALLBACKS = [
+    "https://res.cloudinary.com/di8a3pdgu/image/upload/w_400,h_300,c_fill/v1702128464/samples/landscapes/nature-mountains",
+    "https://res.cloudinary.com/di8a3pdgu/image/upload/w_400,h_300,c_fill/v1702128464/samples/food/spices"
+  ];
 
-  // Cloudinary fallback image
-  const fallbackImageUrl = "https://res.cloudinary.com/di8a3pdgu/image/upload/cld-sample-2";
+  // Try to use category-specific image first, with a Cloudinary fallback
+  const [imageUrls] = useState(() => {
+    // Start with the category-specific image
+    const urls = [getCourseImage(course.category)];
+    // Add Cloudinary fallbacks
+    return [...urls, ...CLOUDINARY_FALLBACKS];
+  });
 
-  // Keep track of which image we're displaying
-  const [currentImageUrl, setCurrentImageUrl] = useState(primaryImageUrl);
+  // State to track current image index
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const currentImageUrl = imageUrls[currentIndex];
+
+  // Handle image errors - try next image in the list
+  const handleImageError = () => {
+    // Only log errors in development
+    if (process.env.NODE_ENV === 'development') {
+      console.log(`Image failed to load for "${course.title}", trying alternative ${currentIndex + 1}/${imageUrls.length}`);
+    }
+
+    // Try next image or show error state
+    if (currentIndex < imageUrls.length - 1) {
+      setCurrentIndex(currentIndex + 1);
+    } else {
+      setLoading(false);
+      setError(true);
+    }
+  };
 
   return (
     <div className="course-image">
@@ -98,18 +116,7 @@ const CourseImage = ({ course }) => {
         alt={course.title}
         style={{ display: loading || error ? 'none' : 'block' }}
         onLoad={() => setLoading(false)}
-        onError={(e) => {
-          console.error(`Failed to load image for ${course.title}`);
-          // If primary image fails and we haven't tried fallback yet
-          if (currentImageUrl !== fallbackImageUrl) {
-            console.log(`Trying fallback image for ${course.title}`);
-            setCurrentImageUrl(fallbackImageUrl);
-          } else {
-            // Both primary and fallback failed
-            setLoading(false);
-            setError(true);
-          }
-        }}
+        onError={handleImageError}
       />
     </div>
   );
@@ -191,7 +198,7 @@ const HomePage = () => {
             </Col>
             <Col lg={4} className="d-none d-lg-block">
               <img
-                src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2070"
+                src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=600&h=600&auto=format&fit=crop"
                 alt="Learning Illustration"
                 className="img-fluid rounded-circle animate-in"
                 style={{ boxShadow: '0 10px 30px rgba(0,0,0,0.2)', maxHeight: '350px', objectFit: 'cover' }}
@@ -290,7 +297,7 @@ const HomePage = () => {
                     </div>
                     <div className="testimonial-author">
                       <div className="testimonial-avatar">
-                        <img src={`https://ui-avatars.com/api/?name=${encodeURIComponent(quote.author)}&background=random`} alt={quote.author} />
+                        <img src={`https://ui-avatars.com/api/?name=${encodeURIComponent(quote.author)}&background=random&size=50`} alt={quote.author} />
                       </div>
                       <div className="author-info">
                         <h6>{quote.author}</h6>

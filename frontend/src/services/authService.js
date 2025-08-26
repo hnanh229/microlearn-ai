@@ -23,6 +23,9 @@ const authService = {
   resendVerification: (email) =>
     axios.post(`${API_URL}/resend-verification`, { email }),
 
+  checkStatus: (email) =>
+    axios.post(`${API_URL}/check-status`, { email }),
+
   getUserProfile: async () => {
     try {
       const response = await axios.get(`${API_URL}/profile`, getAuthHeader());

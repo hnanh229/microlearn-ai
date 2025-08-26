@@ -56,6 +56,7 @@ function App() {
               <Route path="/summary" element={<SummaryPage />} />
               <Route path="/resend-verify" element={<ResendVerifyPage />} />
               <Route path="/verify" element={<VerifyEmailPage />} />
+              <Route path="/verify-email" element={<VerifyEmailPage />} />
               <Route path="/profile" element={<ProfilePage />} />
 
               {/* Quiz Routes */}
