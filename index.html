@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="./vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <title>MicroLearn</title>
+  <!-- GitHub Pages SPA routing support -->
+  <script>
+    // GitHub Pages SPA routing fix
+    (function() {
+      // Only run on GitHub Pages
+      if (location.hostname === 'hnanh229.github.io') {
+        var redirect = sessionStorage.getItem('redirect');
+        if (redirect) {
+          sessionStorage.removeItem('redirect');
+          console.log('GitHub Pages redirect:', redirect);
+          window.history.replaceState(null, null, redirect);
+        }
+      }
+    })();
+  </script>
+  <script type="module" crossorigin src="/microlearn-ai/assets/index-BE3NhZDc.js"></script>
+  <link rel="stylesheet" crossorigin href="/microlearn-ai/assets/index-DNoBKMhj.css">
+</head>
+
+<body>
+  <div id="root"></div>
+</body>
+
+</html>
