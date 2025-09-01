@@ -17,6 +17,7 @@ import TakeQuizPage from './pages/TakeQuizPage'
 import AdminLoginPage from './pages/admin/AdminLoginPage'
 import AdminDashboardPage from './pages/admin/AdminDashboardPage'
 import UserManagementPage from './pages/admin/UserManagementPage'
+import AdminSettingsPage from './pages/admin/AdminSettingsPage'
 import LoadingScreen from './components/LoadingScreen/LoadingScreen'
 import './App.css'
 
@@ -71,6 +72,7 @@ function App() {
               <Route path="/admin/login" element={<AdminLoginPage />} />
               <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
               <Route path="/admin/users" element={<UserManagementPage />} />
+              <Route path="/admin/settings" element={<AdminSettingsPage />} />
 
               {/* Catch-all route - must be last */}
               <Route path="*" element={<HomePage />} />

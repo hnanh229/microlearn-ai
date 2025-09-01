@@ -54,10 +54,19 @@ const LoginPage = () => {
                         } else {
                             setError('Your email is not verified. Please check your inbox for a verification email or request a new one.');
                         }
-                        navigate('/resend-verify', { state: { email: formData.email } });
+                        // Navigate to resend verification page after a short delay
+                        setTimeout(() => {
+                            navigate('/resend-verify', { state: { email: formData.email } });
+                        }, 2000);
                     }
                 } catch (statusErr) {
                     console.error('Error checking account status:', statusErr);
+                    // Even if status check fails, we know it's a verification issue from the 403 error
+                    setError('Your email is not verified. Please check your inbox for a verification email or request a new one.');
+                    // Navigate to resend verification page after a short delay
+                    setTimeout(() => {
+                        navigate('/resend-verify', { state: { email: formData.email } });
+                    }, 2000);
                 }
             }
         }

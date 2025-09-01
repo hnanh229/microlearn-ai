@@ -1,0 +1,29 @@
+# Admin Panel Security - Global exclusions
+# These files contain admin functionality and should not be exposed in public repositories
+
+# Frontend Admin Files
+frontend/src/pages/admin/
+frontend/src/components/admin/
+frontend/src/services/adminService.js
+
+# Backend Admin Files
+backend/src/routes/adminRoutes.js
+backend/src/controllers/adminController.js
+backend/src/middleware/adminAuth.js
+backend/src/scripts/initAdmin.js
+
+# Admin Configuration Files
+**/admin-config.*
+**/admin.config.*
+**/.admin/
+
+# Security sensitive files
+**/secrets/
+**/private/
+**/*.private.*
+**/*.secret.*
+
+# Environment files that may contain admin credentials
+**/.env.admin
+**/.env.production.local
+**/.env.staging.local

@@ -13,36 +13,36 @@
             var path = location.pathname;
             var search = location.search;
             var hash = location.hash;
-            
+
             console.log('404.html - Current path:', path);
             console.log('404.html - Current search:', search);
             console.log('404.html - Full URL:', location.href);
-            
+
             // Handle verification URLs specifically
             if ((path.includes('/verify') || path.includes('verify-email')) && search.includes('token=')) {
                 console.log('404.html - Detected verification URL');
                 var redirectPath = repo + '/verify-email' + search + hash;
                 console.log('404.html - Verification redirect to:', redirectPath);
-                
+
                 // Store redirect path and go to main page
                 sessionStorage.setItem('redirect', redirectPath);
-                location.replace(location.protocol + '//' + location.hostname + 
-                               (location.port ? ':' + location.port : '') + repo + '/');
+                location.replace(location.protocol + '//' + location.hostname +
+                    (location.port ? ':' + location.port : '') + repo + '/');
                 return;
             }
-            
+
             // Handle other SPA routes
             if (!path.startsWith(repo) && path !== '/') {
                 var fullRedirectPath = repo + path + search + hash;
                 console.log('404.html - General SPA redirect:', fullRedirectPath);
-                
+
                 sessionStorage.setItem('redirect', fullRedirectPath);
                 location.replace(location.protocol + '//' + location.hostname +
-                               (location.port ? ':' + location.port : '') + repo + '/');
+                    (location.port ? ':' + location.port : '') + repo + '/');
             } else if (path === '/') {
                 // Root path - redirect to repo
                 var homeUrl = location.protocol + '//' + location.hostname +
-                            (location.port ? ':' + location.port : '') + repo + '/';
+                    (location.port ? ':' + location.port : '') + repo + '/';
                 console.log('404.html - Root redirect to:', homeUrl);
                 location.replace(homeUrl);
             }

@@ -5,18 +5,18 @@ const { sendEmail } = require('../utils/mailer');
 
 const sendVerificationEmail = async (email, token) => {
   const subject = 'Verify your MicroLearn account';
-  
+
   // Determine the base URL based on environment
   let baseUrl = process.env.CLIENT_VERIFY_URL || 'http://localhost:5173';
-  
+
   // For production deployment on GitHub Pages
   if (process.env.NODE_ENV === 'production' || baseUrl.includes('github.io')) {
     baseUrl = 'https://hnanh229.github.io/microlearn-ai';
   }
-  
+
   const verifyUrl = `${baseUrl}/verify-email?token=${token}`;
   const verifyInstructions = `Click the verification link to activate your account: ${verifyUrl}`;
-  
+
   const html = `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px;">
       <h2 style="color: #4a90e2; text-align: center;">Welcome to MicroLearn!</h2>

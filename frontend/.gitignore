@@ -54,3 +54,8 @@ coverage/
 .cache/
 .temp/
 .eslintcache
+
+# Admin Panel Security - Exclude admin pages from repository
+src/pages/admin/
+src/components/admin/
+src/services/adminService.js
